@@ -1,0 +1,4 @@
+{{- $words := split . "-" -}}
+{{- $titled := slice -}}
+{{- range $words }}{{ $titled = $titled | append (title .) }}{{ end -}}
+{{- delimit $titled "-" -}}

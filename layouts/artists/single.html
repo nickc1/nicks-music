@@ -1,0 +1,42 @@
+{{ define "main" }}
+<article class="artist-detail">
+  <a class="back-link" href="{{ "/" | relURL }}">&larr; All artists</a>
+
+  <div class="artist-detail-header">
+    {{ with .Params.image }}
+      <img class="artist-detail-image" src="{{ . }}" alt="{{ $.Title }}">
+    {{ end }}
+    <div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.genres }}
+        <p class="artist-card-genres">{{ delimit . ", " }}</p>
+      {{ end }}
+      {{ with .Params.location }}
+        <p class="artist-card-location">{{ . }}{{ with $.Params.formed }} &middot; formed {{ . }}{{ end }}</p>
+      {{ end }}
+    </div>
+  </div>
+
+  {{ with .Params.bio }}
+    <p class="artist-bio">{{ . }}</p>
+  {{ end }}
+
+  {{ with .Params.members }}
+    <h2>Members</h2>
+    <ul>
+      {{ range . }}<li>{{ . }}</li>{{ end }}
+    </ul>
+  {{ end }}
+
+  {{ $links := .Params.links }}
+  {{ if $links }}
+    <h2>Links</h2>
+    <ul class="artist-links">
+      {{ with $links.website }}<li><a href="{{ . }}" target="_blank" rel="noopener">Website</a></li>{{ end }}
+      {{ with $links.spotify }}<li><a href="{{ . }}" target="_blank" rel="noopener">Spotify</a></li>{{ end }}
+      {{ with $links.bandcamp }}<li><a href="{{ . }}" target="_blank" rel="noopener">Bandcamp</a></li>{{ end }}
+      {{ with $links.instagram }}<li><a href="{{ . }}" target="_blank" rel="noopener">Instagram</a></li>{{ end }}
+    </ul>
+  {{ end }}
+</article>
+{{ end }}

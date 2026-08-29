@@ -1,0 +1,19 @@
+name: "River Bend"
+location: "Asheville, NC"
+formed: 2017
+bio: >
+  River Bend is a four-piece indie folk outfit known for close vocal
+  harmonies and songs written on long drives through the Blue Ridge
+  Mountains. Their debut EP was recorded live in a converted barn.
+image: ""
+links:
+  website: "https://example.com/river-bend"
+  spotify: "https://open.spotify.com/artist/example"
+  instagram: "https://instagram.com/riverbendmusic"
+  bandcamp: "https://riverbend.bandcamp.com"
+members:
+  - "Sam Ortiz - Vocals, Guitar"
+  - "Priya Nair - Fiddle, Vocals"
+  - "Dez Okafor - Upright Bass"
+  - "Toby Lin - Drums"
+featured: true

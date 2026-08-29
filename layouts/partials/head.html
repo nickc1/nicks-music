@@ -1,0 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if not .IsHome }}{{ if eq .Kind "term" }}{{ partial "humanize-slug.html" .Data.Term }}{{ else }}{{ .Title }}{{ end }} · {{ end }}{{ site.Title }}</title>
+<meta name="description" content="{{ site.Params.description }}">
+<link rel="stylesheet" href="{{ "css/style.css" | relURL }}">

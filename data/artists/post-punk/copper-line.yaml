@@ -1,0 +1,18 @@
+name: "Copper Line"
+location: "Glasgow, UK"
+formed: 2014
+bio: >
+  Copper Line formed out of a shared love of angular guitar lines and
+  motorik drumming. Three albums in, they remain a fixture of the
+  Glasgow DIY scene.
+image: ""
+links:
+  website: "https://example.com/copper-line"
+  spotify: ""
+  instagram: "https://instagram.com/copperlineband"
+  bandcamp: "https://copperline.bandcamp.com"
+members:
+  - "Fiona Blair - Vocals, Guitar"
+  - "Ewan Ross - Bass"
+  - "Callum Reid - Drums"
+featured: false

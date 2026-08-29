@@ -1,0 +1,17 @@
+{{/* data/artists/<genre-slug>/<artist-slug>.yaml -> /artists/<genre-slug>/<artist-slug>/ */}}
+{{ range $genreSlug, $artists := hugo.Data.artists }}
+  {{ $words := split $genreSlug "-" }}
+  {{ $titled := slice }}
+  {{ range $words }}{{ $titled = $titled | append (title .) }}{{ end }}
+  {{ $genreName := delimit $titled "-" }}
+
+  {{ range $artistSlug, $artist := $artists }}
+    {{ $params := merge $artist (dict "genre" $genreName "genres" (slice $genreName)) }}
+    {{ $.AddPage (dict
+      "kind" "page"
+      "path" (printf "%s/%s" $genreSlug $artistSlug)
+      "title" $artist.name
+      "params" $params
+    ) }}
+  {{ end }}
+{{ end }}

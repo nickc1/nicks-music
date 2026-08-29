@@ -1,0 +1,28 @@
+{{ define "main" }}
+<div class="hero">
+  <h1>{{ site.Title }}</h1>
+  <p>{{ site.Params.description }}</p>
+</div>
+
+<div class="genre-pills" id="genre-pills">
+  <button type="button" class="pill active" data-genre="">All</button>
+  {{ range $term, $weighted := site.Taxonomies.genres }}
+    <button type="button" class="pill" data-genre="{{ $term }}">{{ partial "humanize-slug.html" $term }}</button>
+  {{ end }}
+</div>
+
+<div class="artist-controls">
+  <input type="search" id="artist-search" placeholder="Search by name, genre, or location…" autocomplete="off">
+  <span id="artist-count" class="artist-count"></span>
+</div>
+
+<div id="artist-grid" class="artist-grid">
+  {{ range (where site.RegularPages "Section" "artists").ByTitle }}
+    {{ partial "artist-card.html" . }}
+  {{ end }}
+</div>
+
+<p id="artist-empty" class="artist-empty" hidden>No artists match your search.</p>
+
+<script src="{{ "js/filter.js" | relURL }}"></script>
+{{ end }}

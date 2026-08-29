@@ -1,0 +1,11 @@
+{{ define "main" }}
+<h1>Genres</h1>
+<ul class="genre-list">
+  {{ range $term, $weighted := site.Taxonomies.genres }}
+    <li>
+      <a href="{{ printf "/genres/%s/" ($term | urlize) | relURL }}">{{ partial "humanize-slug.html" $term }}</a>
+      <span class="artist-count">{{ len $weighted.Pages }}</span>
+    </li>
+  {{ end }}
+</ul>
+{{ end }}

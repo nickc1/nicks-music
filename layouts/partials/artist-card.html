@@ -1,0 +1,23 @@
+{{ $artist := . }}
+<a class="artist-card"
+   href="{{ $artist.RelPermalink }}"
+   data-name="{{ $artist.Params.name | default $artist.Title | lower }}"
+   data-genres="{{ delimit $artist.Params.genres "," | lower }}"
+   data-location="{{ $artist.Params.location | lower }}">
+  <div class="artist-card-image">
+    {{ with $artist.Params.image }}
+      <img src="{{ . }}" alt="{{ $artist.Title }}" loading="lazy">
+    {{ else }}
+      <div class="artist-card-placeholder">{{ substr $artist.Title 0 1 }}</div>
+    {{ end }}
+  </div>
+  <div class="artist-card-body">
+    <h3>{{ $artist.Title }}</h3>
+    {{ with $artist.Params.genres }}
+      <p class="artist-card-genres">{{ delimit . ", " }}</p>
+    {{ end }}
+    {{ with $artist.Params.location }}
+      <p class="artist-card-location">{{ . }}</p>
+    {{ end }}
+  </div>
+</a>
