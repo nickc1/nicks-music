@@ -1,12 +1,13 @@
 (function () {
   var input = document.getElementById("artist-search");
-  var grid = document.getElementById("artist-grid");
+  var container = document.getElementById("artist-groups");
   var empty = document.getElementById("artist-empty");
   var count = document.getElementById("artist-count");
   var pillsContainer = document.getElementById("genre-pills");
-  if (!input || !grid) return;
+  if (!input || !container) return;
 
-  var cards = Array.prototype.slice.call(grid.querySelectorAll(".artist-card"));
+  var sections = Array.prototype.slice.call(container.querySelectorAll(".genre-section"));
+  var cards = Array.prototype.slice.call(container.querySelectorAll(".artist-card"));
   var pills = pillsContainer ? Array.prototype.slice.call(pillsContainer.querySelectorAll(".pill")) : [];
   var activeGenre = "";
 
@@ -17,26 +18,31 @@
 
   function applyFilter() {
     var query = input.value.trim().toLowerCase();
-    var visible = 0;
+    var totalVisible = 0;
 
-    cards.forEach(function (card) {
-      var genres = (card.dataset.genres || "").split(",");
-      var haystack = [
-        card.dataset.name || "",
-        card.dataset.genres || "",
-        card.dataset.location || ""
-      ].join(" ");
+    sections.forEach(function (section) {
+      var sectionMatchesGenre = activeGenre === "" || section.dataset.genreSection === activeGenre;
+      var sectionCards = Array.prototype.slice.call(section.querySelectorAll(".artist-card"));
+      var sectionVisible = 0;
 
-      var matchesQuery = query === "" || haystack.indexOf(query) !== -1;
-      var matchesGenre = activeGenre === "" || genres.indexOf(activeGenre) !== -1;
-      var match = matchesQuery && matchesGenre;
+      sectionCards.forEach(function (card) {
+        var haystack = [
+          card.dataset.name || "",
+          card.dataset.genres || "",
+          card.dataset.location || ""
+        ].join(" ");
+        var matchesQuery = query === "" || haystack.indexOf(query) !== -1;
+        var match = sectionMatchesGenre && matchesQuery;
+        card.hidden = !match;
+        if (match) sectionVisible++;
+      });
 
-      card.hidden = !match;
-      if (match) visible++;
+      section.hidden = sectionVisible === 0;
+      totalVisible += sectionVisible;
     });
 
-    empty.hidden = visible !== 0;
-    updateCount(visible);
+    empty.hidden = totalVisible !== 0;
+    updateCount(totalVisible);
   }
 
   input.addEventListener("input", applyFilter);

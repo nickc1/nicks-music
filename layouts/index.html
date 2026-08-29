@@ -16,9 +16,19 @@
   <span id="artist-count" class="artist-count"></span>
 </div>
 
-<div id="artist-grid" class="artist-grid">
-  {{ range (where site.RegularPages "Section" "artists").ByTitle }}
-    {{ partial "artist-card.html" . }}
+<div id="artist-groups">
+  {{ range $term, $weighted := site.Taxonomies.genres }}
+    <section class="genre-section" data-genre-section="{{ $term }}">
+      <h2 class="genre-section-title">
+        <a href="{{ printf "/genres/%s/" ($term | urlize) | relURL }}">{{ partial "humanize-slug.html" $term }}</a>
+        <span class="artist-count">{{ len $weighted.Pages }}</span>
+      </h2>
+      <div class="artist-grid">
+        {{ range $weighted.Pages.ByTitle }}
+          {{ partial "artist-card.html" . }}
+        {{ end }}
+      </div>
+    </section>
   {{ end }}
 </div>
 

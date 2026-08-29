@@ -132,6 +132,17 @@ main.container { padding-top: 2rem; padding-bottom: 4rem; min-height: 60vh; }
 
 .artist-empty { color: var(--text-dim); text-align: center; padding: 2rem 0; }
 
+.genre-section[hidden] { display: none; }
+.genre-section { margin-bottom: 2.5rem; }
+.genre-section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+}
+.genre-section-title a { color: var(--text); }
+.genre-section-title a:hover { color: var(--accent); text-decoration: none; }
+
 .genre-list { list-style: none; padding: 0; }
 .genre-list li {
   display: flex;
