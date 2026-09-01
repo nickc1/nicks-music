@@ -1,10 +1,14 @@
 {{ $artist := . }}
-<a class="artist-card"
+<a class="artist-card{{ if $artist.Params.favorite }} is-favorite{{ end }}"
    href="{{ $artist.RelPermalink }}"
    data-name="{{ $artist.Params.name | default $artist.Title | lower }}"
    data-genres="{{ delimit $artist.Params.genres "," | lower }}"
-   data-location="{{ $artist.Params.location | lower }}">
+   data-location="{{ $artist.Params.location | lower }}"
+   data-favorite="{{ if $artist.Params.favorite }}true{{ else }}false{{ end }}">
   <div class="artist-card-image">
+    {{ if $artist.Params.favorite }}
+      <span class="artist-card-favorite" title="Favorite">&#9733;</span>
+    {{ end }}
     {{ with $artist.Params.image }}
       <img src="{{ . }}" alt="{{ $artist.Title }}" loading="lazy">
     {{ else }}

@@ -13,6 +13,7 @@
 
 <div class="artist-controls">
   <input type="search" id="artist-search" placeholder="Search by name, genre, or location…" autocomplete="off">
+  <button type="button" class="pill favorites-toggle" id="favorites-toggle" data-favorites-only="false">&#9733; Favorites</button>
   <span id="artist-count" class="artist-count"></span>
 </div>
 
@@ -24,7 +25,12 @@
         <span class="artist-count">{{ len $weighted.Pages }}</span>
       </h2>
       <div class="artist-grid">
-        {{ range $weighted.Pages.ByTitle }}
+        {{ $favorites := (where $weighted.Pages "Params.favorite" true).ByTitle }}
+        {{ $others := (where $weighted.Pages "Params.favorite" "ne" true).ByTitle }}
+        {{ range $favorites }}
+          {{ partial "artist-card.html" . }}
+        {{ end }}
+        {{ range $others }}
           {{ partial "artist-card.html" . }}
         {{ end }}
       </div>

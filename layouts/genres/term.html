@@ -2,7 +2,12 @@
 <a class="back-link" href="{{ "/genres/" | relURL }}">&larr; All genres</a>
 <h1>{{ partial "humanize-slug.html" .Data.Term }}</h1>
 <div class="artist-grid">
-  {{ range .Pages.ByTitle }}
+  {{ $favorites := (where .Pages "Params.favorite" true).ByTitle }}
+  {{ $others := (where .Pages "Params.favorite" "ne" true).ByTitle }}
+  {{ range $favorites }}
+    {{ partial "artist-card.html" . }}
+  {{ end }}
+  {{ range $others }}
     {{ partial "artist-card.html" . }}
   {{ end }}
 </div>

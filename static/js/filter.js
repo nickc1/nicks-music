@@ -4,12 +4,14 @@
   var empty = document.getElementById("artist-empty");
   var count = document.getElementById("artist-count");
   var pillsContainer = document.getElementById("genre-pills");
+  var favoritesToggle = document.getElementById("favorites-toggle");
   if (!input || !container) return;
 
   var sections = Array.prototype.slice.call(container.querySelectorAll(".genre-section"));
   var cards = Array.prototype.slice.call(container.querySelectorAll(".artist-card"));
   var pills = pillsContainer ? Array.prototype.slice.call(pillsContainer.querySelectorAll(".pill")) : [];
   var activeGenre = "";
+  var favoritesOnly = false;
 
   function updateCount(visible) {
     if (!count) return;
@@ -32,7 +34,8 @@
           card.dataset.location || ""
         ].join(" ");
         var matchesQuery = query === "" || haystack.indexOf(query) !== -1;
-        var match = sectionMatchesGenre && matchesQuery;
+        var matchesFavorite = !favoritesOnly || card.dataset.favorite === "true";
+        var match = sectionMatchesGenre && matchesQuery && matchesFavorite;
         card.hidden = !match;
         if (match) sectionVisible++;
       });
@@ -46,6 +49,15 @@
   }
 
   input.addEventListener("input", applyFilter);
+
+  if (favoritesToggle) {
+    favoritesToggle.addEventListener("click", function () {
+      favoritesOnly = !favoritesOnly;
+      favoritesToggle.classList.toggle("active", favoritesOnly);
+      favoritesToggle.dataset.favoritesOnly = String(favoritesOnly);
+      applyFilter();
+    });
+  }
 
   pills.forEach(function (pill) {
     pill.addEventListener("click", function () {
