@@ -1,9 +1,5 @@
 {{ define "main" }}
-<div class="hero">
-  <h1>{{ site.Title }}</h1>
-  <p>{{ site.Params.description }}</p>
-</div>
-
+{{ partial "now-listening.html" . }}
 <div class="genre-pills" id="genre-pills">
   <button type="button" class="pill active" data-genre="">All</button>
   {{ range $term, $weighted := site.Taxonomies.genres }}

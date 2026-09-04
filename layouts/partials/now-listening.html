@@ -1,0 +1,19 @@
+{{ $nowListening := (where site.RegularPages "Params.now_listening" true).ByTitle }}
+{{ with $nowListening }}
+<section class="now-listening">
+  <h2 class="now-listening-title">Now Listening</h2>
+  <div class="now-listening-list">
+    {{ range . }}
+      {{ $artist := . }}
+      <a class="now-listening-item" href="{{ $artist.RelPermalink }}">
+        {{ with $artist.Params.image }}
+          <img src="{{ . }}" alt="" loading="lazy">
+        {{ else }}
+          <span class="now-listening-placeholder">{{ substr $artist.Title 0 1 }}</span>
+        {{ end }}
+        <span class="now-listening-name">{{ $artist.Title }}</span>
+      </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
