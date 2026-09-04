@@ -5,23 +5,18 @@
    data-genres="{{ delimit $artist.Params.genres "," | lower }}"
    data-location="{{ $artist.Params.location | lower }}"
    data-favorite="{{ if $artist.Params.favorite }}true{{ else }}false{{ end }}">
-  <div class="artist-card-image">
-    {{ if $artist.Params.favorite }}
-      <span class="artist-card-favorite" title="Favorite">&#9733;</span>
-    {{ end }}
-    {{ with $artist.Params.image }}
-      <img src="{{ . }}" alt="{{ $artist.Title }}" loading="lazy">
-    {{ else }}
-      <div class="artist-card-placeholder">{{ substr $artist.Title 0 1 }}</div>
-    {{ end }}
-  </div>
   <div class="artist-card-body">
-    <h3>{{ $artist.Title }}</h3>
+    <h3>
+      {{ $artist.Title }}
+      {{ if $artist.Params.favorite }}
+        <span class="artist-card-favorite" title="Favorite">&#9733;</span>
+      {{ end }}
+    </h3>
     {{ with $artist.Params.genres }}
       <p class="artist-card-genres">{{ delimit . ", " }}</p>
     {{ end }}
-    {{ with $artist.Params.location }}
-      <p class="artist-card-location">{{ . }}</p>
-    {{ end }}
   </div>
+  {{ with $artist.Params.location }}
+    <p class="artist-card-location">{{ . }}</p>
+  {{ end }}
 </a>
